@@ -129,6 +129,12 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
+      algolia: {
+        appId: 'EDF1AEJ6GO', // Application ID
+        apiKey: '69f97bca21adbea643f3dcf06e4ab510', // Search-Only API Key
+        indexName: 'gh', // config.json에 설정한 인덱스명
+        contextualSearch: true,
+      },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
