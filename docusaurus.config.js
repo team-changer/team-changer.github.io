@@ -23,6 +23,7 @@ const config = {
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
+  trailingSlash: false,
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -72,10 +73,19 @@ const config = {
         items: [
           { to: "/blog", label: "블로그", position: "left" },
           {
-            type: "docSidebar",
-            sidebarId: "tutorialSidebar",
-            position: "left",
-            label: "Tutorial",
+            to: '/docs/common', 
+            label: '팀', 
+            position: 'left'
+          },
+          {
+            to: '/docs/backend', 
+            label: '백엔드', 
+            position: 'left'
+          },
+          {
+            to: '/docs/android', 
+            label: '안드로이드', 
+            position: 'left'
           },
           {
             href: "https://github.com/woowacourse-teams/2023-trip-draw",
