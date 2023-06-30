@@ -1,17 +1,41 @@
-endi:
-  name: Endilie Yacop Sucipto
-  title: Maintainer of Docusaurus
-  url: https://github.com/endiliey
-  image_url: https://github.com/endiliey.png
+boar:
+  name: 멧돼지
+  title: Android
+  url: https://github.com/2chang5
+  image_url: https://github.com/2chang5.png
 
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
+otter:
+  name: 수달
+  title: Android
+  url: https://github.com/otter66
+  image_url: https://github.com/otter66.png
 
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
+pingu:
+  name: 핑구
+  title: Android
+  url: https://github.com/pingu244
+  image_url: https://github.com/pingu244.png
+
+changer:
+  name: 체인저
+  title: Backend
+  url: https://github.com/beer-2000
+  image_url: https://github.com/beer-2000.png
+
+herb:
+  name: 허브
+  title: Backend
+  url: https://github.com/greeng00se
+  image_url: https://github.com/greeng00se.png
+
+huchu:
+  name: 후추
+  title: Backend
+  url: https://github.com/Combi153
+  image_url: https://github.com/Combi153.png
+
+reo:
+  name: 리오
+  title: Backend
+  url: https://github.com/Jaeyoung22
+  image_url: https://github.com/Jaeyoung22.png
