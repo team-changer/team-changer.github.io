@@ -1,56 +1,96 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
+import clsx from "clsx";
+import React from "react";
+import styles from "./styles.module.css";
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: "⏰ 사랑하는 팀원의 시간을 낭비시키지 말아요",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        지각하지 말아요.
+        <br />
+        시작 시간과 끝 시간을 명확히 해요.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: "📖 지식 공유의 가치를 믿어요",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        어떤 질문도 괜찮아요.
+        <br />
+        새로 얻은 지식은 공유를 해요.
+        <br />
+        팀 블로그를 적극적으로 작성해요.
+        <br />
+        필요한 경우 팀원에게 지식 공유 요청을 해요.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: "😴 휴식이 필요하다는 것을 명심해요",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        졸지 말고 자요. 너무 많이는 말고요. 😉
+        <br />
+        18시 이후의 시간을 보장해요.
+        <br />
+        회의중 잠시 쉬는 시간을 가지는 멈춰!권을 보장해요.
+      </>
+    ),
+  },
+  {
+    title: "📋 건강한 회의를 지향해요.",
+    description: (
+      <>
+        회의할 때는 경어를 사용해요.
+        <br />
+        서로의 무드를 맞추기 위해 BGM을 틀어요.
+        <br />
+        근거 있는 주장, 열려 있는 토론을 해요.
+      </>
+    ),
+  },
+  {
+    title: "🤗 우리는 🌈🦄❤️🌸 친해요^^",
+    description: (
+      <>
+        매일 아침 잡담 후 스크럼을 진행해요.
+        <br />
+        화요일마다 같이 점심을 먹어요.
+        <br />
+        금요일 5시에는 주간 회고를 진행해요.
+      </>
+    ),
+  },
+  {
+    title: "🌈 따봉리오야 고마워 👍",
+    description: (
+      <>
+        서로 존중하고 감사해요.
+        <br />
+        적극적으로 칭찬해요.
+        <br />
+        좋은데요?를 많이 사용해요.
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
+    <div className={clsx("col col--4")}>
+      <div className="text--left padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
+      <br/>
+      <br/>
     </div>
   );
 }

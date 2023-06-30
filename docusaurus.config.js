@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "TripDraw",
-  tagline: "Dinosaurs are cool",
+  tagline: "나만의 여행을 스케치하고 공유하다.",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -78,7 +78,7 @@ const config = {
             label: "Tutorial",
           },
           {
-            href: "https://github.com/trip-draw",
+            href: "https://github.com/woowacourse-teams/2023-trip-draw",
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
