@@ -40,17 +40,16 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           editUrl:
-          "https://github.com/trip-draw/trip-draw.github.io/tree/main/docs/",
+          "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          postsPerPage: 1,
           editUrl:
-            "https://github.com/trip-draw/trip-draw.github.io/tree/main/blog/",
+            "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
