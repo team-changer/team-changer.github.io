@@ -1,0 +1,32 @@
+---
+title: Gradle
+last_update:
+  date: 2023/07/06
+  author: 멧돼지
+slug: Gradle
+tags: [Android, Trip-Draw, StyleGuide, Gradle, Convention, 우아한테크코스, 우테코, 멧돼징, 핑구, 수달]
+---
+
+# Gradle
+
+## Dependencies
+
+- 라이브러리를 추가할때 꼭 외부 라이브러리의 라이센스 고지를 추가한다.
+- 라이브러리의 버전은 +로 적지 않고 명시한다.
+
+```
+implementation 'gun0912.ted:tedpermission-rx2:2.2.0' <- O
+//implementation 'gun0912.ted:tedpermission-rx2:2.+' <- X
+```
+
+## version catalogs
+
+[안드로이드 공식문서] https://developer.android.com/studio/build/migrate-to-catalogs?hl=ko
+
+gradle 버전 7.0부터 사용가능하며 7.4버전 부터 stable해졌다
+
+- version catalogs 는 안드로이드에서 제공하는 version 관리 tool로써 모듈 세부적으로 나누는경우 편리하게 이용할수있다.
+
+- version catalogs 이전의 버전관리 방법들(ex: project grade 에서의 ext 설정, BuildSrc모듈) 에 비해 자동완성 혹은 번들기능을 제공하여 편리하다.
+
+- 여러 모듈의 버전을 일정하게 동기화 시킬수 있다.
