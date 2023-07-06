@@ -1,0 +1,70 @@
+---
+title: Test
+last_update:
+  date: 2023/07/06
+  author: 멧돼지
+slug: Test
+tags: [Android, Trip-Draw, StyleGuide, Test, Convention, 우아한테크코스, 우테코, 멧돼징, 핑구, 수달]
+---
+
+# Test
+
+- 안드로이드, 순수 Java,kotlin 모듈 모두 Junit 5를 사용한다.
+
+
+
+## 이름 짓기
+
+### 테스트 케이스 이름
+
+- 클래스명이나 함수명은 변경될 수 있으므로 테스트 케이스 이름에는 클래스명이나 함수명을 넣는 것을 최대한 지양한다.
+
+Do (recommended)
+
+```
+@Test
+fun `1 더하기 2는 3이어야 한다`() { /**/ }
+```
+
+Do not (optional)
+
+```
+@Test
+fun `Calculator에서 add(1, 2)를 호출하면 3을 반환해야 한다`() { /**/ }
+```
+
+
+
+### 테스트 클래스 이름
+
+- IDE의 기본을 따라 `Calculator`에 대한 테스트 클래스는 `CalculatorTest`로 한다.
+
+```
+// Calculator.kt
+class Calculator { /* ... */ }
+```
+
+
+
+```
+// CalculatorTest.kt
+class CalculatorTest { /* ... */ }
+```
+
+
+
+- top-level 함수만 모여있는 `CalculatorExtension.kt` 파일에 대한 테스트 클래스 이름은 `CalculatorExtensionTest.kt`로 한다.
+
+```
+// CalculatorExtension.kt
+fun Calculator.foo() { /* ... */ }
+fun Calculator.bar() { /* ... */ }
+```
+
+
+
+```
+// CalculatorExtensionTest.kt
+class CalculatorExtensionTest { /* ... */ }
+```
+
