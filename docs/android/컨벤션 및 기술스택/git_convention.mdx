@@ -1,0 +1,114 @@
+---
+title: Github Convention
+last_update:
+  date: 2023/07/06
+  author: 멧돼지
+slug: Github Convention
+tags: [Android, Trip-Draw, StyleGuide, Github Convention, Convention, 우아한테크코스, 우테코, 멧돼지, 핑구, 수달]
+---
+
+# Github Convention 
+
+1. 1개의 feature 단위로 브랜치 생성한다.
+2. 1개의 feature 단위로 issue 생성한다.
+3. 1개의 issue 내에 세부작업마다 commit한다.(커밋은 원자단위로 찍는다)
+4. 1개의 feature 끝나면 pull request 한다. ⇒ 코드리뷰후 merge되면 해당 issue를 close 한다.
+
+
+
+
+## Issue Convention
+
+```jsx
+## 화면 이름
+제플린이나 피그마 프레임 단위
+
+## 기능 설명
+구글 로그인 구현
+
+사진<img src = "">(선택사항)
+
+## 필요 태스크
+- [x] 구글 로그인 api 연동
+- [x] 토큰 전송
+```
+
+- 최대한 자세히 작성한다. (issue를 최대한 자세히 작성함으로 PR과 commit message를 경량화 할 수 있다.)
+- 한글로 작성한다.
+- 명령조를 사용한다. (수정(o)수정한다(x))
+- issue 제목
+  - [prefix] 화면명 / 이슈명
+  - [prefix] 이슈명 (util 혹은 chore 작업시 화면명은 적지 않는다)
+- github label
+  - commit prefix 과 동일하게 단다.
+  - android를 단다.
+  - 해당인원의 이름 Label을 단다.
+
+
+
+## Commit Convention
+
+### commit message convention
+
+- `[prefix] 화면명 / 작엽명 #(issue_number)`
+
+- **[feat] 메인_홈 / 무한스크롤 구현 (#433)**
+
+- commit message에는 마침표(.)를 찍지않는다. 
+
+  - commit prefix
+
+    - [feat] : 기능 추가, kotlin 작업
+
+    - [ui] : xml 작업
+
+    - [fix] : 에러 수정, 버그 수정
+
+    - [docs] : README, 문서
+
+    - [refactor] : 코드 리펙토링 (기능 변경 없이 코드만 수정할 때)
+
+    - [chore] : gradle 세팅, 위의 것 이외에 거의 모든 것
+
+    - [util] : util 관련 작업시
+
+    - [style]: 코드 스타일 변경
+
+    - [add] : 파일 추가 시
+
+    - [test] : 테스트
+
+  
+
+
+
+## PR Convention
+
+```jsx
+## 관련 이슈번호
+- closed #234
+
+## 작업 설명
+- 알잘딱깔센
+
+## 작업화면(선택)
+
+## 미완료 태스크(선택 주석으로 만들어놓음)
+- [ ] Task1
+```
+
+- 한글로 작성한다.
+
+- 최대한 간단히 작성한다. 이슈를 통해 내용을 파악한다. 
+
+- 명령조를 사용한다. (수정(o)수정한다(x))
+
+- 제목: issue 제목 (#이슈번호)   (이슈 제목 자체를 복사 붙여넣기 하면된다.)
+
+  ex) **[feat] 메인_홈 / 무한스크롤 구현 (#433)**
+
+- 내용: 템플릿 형식을 따르며 PR에서 미완료된 태스크가 있다면 기재한다.
+
+- github label
+
+  - pull request 라벨 추가 
