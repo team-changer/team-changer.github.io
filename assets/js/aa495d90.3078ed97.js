@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[756],{5501:e=>{e.exports=JSON.parse('{"label":"Gradle","permalink":"/docs/tags/gradle","allTagsPath":"/docs/tags","count":1,"items":[{"id":"android/gradle","title":"Gradle","description":"Dependencies","permalink":"/docs/android/Gradle"}]}')}}]);
