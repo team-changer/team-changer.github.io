@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[1322],{9859:t=>{t.exports=JSON.parse('{"label":"Kotlin","permalink":"/docs/tags/kotlin","allTagsPath":"/docs/tags","count":1,"items":[{"id":"android/kotlin","title":"Kotlin","description":"Concepts","permalink":"/docs/android/Kotlin"}]}')}}]);
