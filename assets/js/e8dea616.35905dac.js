@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[2952],{3608:e=>{e.exports=JSON.parse('{"label":"Resource","permalink":"/docs/tags/resource","allTagsPath":"/docs/tags","count":1,"items":[{"id":"android/resource","title":"Resource","description":"Layout","permalink":"/docs/android/Resource"}]}')}}]);
