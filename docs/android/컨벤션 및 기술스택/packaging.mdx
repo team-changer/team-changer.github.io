@@ -1,0 +1,81 @@
+---
+title: Packaging
+last_update:
+  date: 2023/07/06
+  author: 멧돼지
+slug: Packaging
+tags: [Android, Trip-Draw, StyleGuide, Packaging, Convention, 우아한테크코스, 우테코, 멧돼징, 핑구, 수달]
+---
+
+# Moduling
+
+- 최초 모듈은 app모듈을 제외하고 domain을 분리한다.
+- 유틸성 함수를 가지고있는 Support 모듈을 분리한다.
+- 추후 feature 단위로 모듈을 나눌 가능성을 열어놓고 개발한다.
+
+
+
+# Support
+
+``````mermaid
+flowchart TD
+    UI:app --> Domain
+    UI:app --> support
+``````
+
+
+
+- 일반적으로 코드의 중복을 없애기위한 Util함수들을 support 모듈에 배치한다.
+- support 모듈은 본 프로젝트와 관계없이 재활용할 수 있도록 설계한다.
+- domain의 경우 Util성 함수를 최대한 객체지향적으로 해결하려 노력하며(사실상 util 함수 금지) 만약 불가피하게 필요하다면 package로 구분한다.
+
+
+
+### Support 내부 Packaging
+
+- 최상위 패키지명은 framework로 한다. (framework에 의존성이 존재함을 뜻한다.)
+- 하위 패키지로 data와 presentation이 존재한다. (data layer, presenter layer 의 support임을 의미)
+
+- data 패키지에는 data layer 관련 함수들이 존재한다 ex) Retrofit,Room,SharedPreference
+- presentation 패키지에는 presentation layer 관련 함수(data layer의 것들을 제외한 안드로의드의 대부분)들이 존재한다.Ex) View,Resource
+
+### 파일명
+
+- 관련된 항목명의 복수형을 사용한다. Ex) retrofit관련 함수라면 ```Retrofits```
+
+- 확장함수들의 모음이라면 Extensions 를 붙인다 ex) view 관련 확잠함수라면 ```ViewExtensions```
+
+
+
+# Packaging
+
+- app 모듈내의 Layer는 packaging 을 통해 구분한다.
+
+- Data layer , Presentation layer 가 존재한다.
+
+  
+
+### Presentation layer
+
+- 최상위 패키지명은 ```ui```로 한다.
+- 하위 패키지 명은 Feature 단위로 네이밍한다. Ex) 주문상세화면 기능 ```orderDetail```
+- 하위 Fragment 가 있다면 Feature 패키지 내부에서 Packaging한다.
+- Ui 모델을 모아놓은  ```model``` 패키지가 존재한다.
+- Ui 모델 관련 Mapper 를 모아놓은 ```mapper``` 패키지가 존재한다.
+
+
+
+### Data layer
+
+- http 통신을 하는 라이브러리 관련 패키지인 ```httpClient``` 가 존재한다.
+
+  - Http 클라이언트 DTO를 모아놓은 ```dto ``` 패키지가 존재한다.
+  - 요청관련 DTO를 모아놓은 ```request``` 패키지가 존재한다.
+  - 응답관련 DTO를 모아놓은 ```response``` 패키지가 존재한다.
+  - 각 DTO와 Data layer model 을 mapping 하는 mapper를 모아놓은 ```mapper```패키지가 존재한다.
+
+- Data 모델을 모아놓은  Model 패키지가 존재한다.
+
+- Data 모델 관련 Mapper 를 모아놓은 Mapper 패키지가 존재한다.
+
+  
