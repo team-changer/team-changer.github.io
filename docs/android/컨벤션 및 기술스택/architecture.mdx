@@ -29,8 +29,6 @@ tags: [Android, Trip-Draw, Architecture, 우아한테크코스, 우테코, 멧�
 data class User(){}
 ```
 
-
-
 ### Presentation
 
 ```kotlin
@@ -40,8 +38,6 @@ fun User.toPresentation(): UiUser
 fun UiUser.toDomain(): User
 ```
 
-
-
 ### Data
 
 ```kotlin
@@ -50,8 +46,6 @@ data class DataUser(){}
 fun DataUser.toDomain(): User
 fun User.toData(): DataUser
 ```
-
-
 
 ### Remote(Retrofit3 DTO)
 
@@ -66,8 +60,6 @@ fun DataUser.toHttpResponse(): UserResponse
 fun DataUser.toHttpRequest(): UserResquest
 ```
 
-
-
 ### Local(Room DTO)
 
 ```kotlin
@@ -77,5 +69,4 @@ fun UserEntity.toData(): DataUser
 fun DataUser.toEntity(): UserEntity
 ```
 
- 
 
