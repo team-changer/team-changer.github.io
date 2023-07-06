@@ -1,0 +1,81 @@
+---
+title: Architecture
+last_update:
+  date: 2023/07/06
+  author: 멧돼지
+slug: Architecture
+tags: [Android, Trip-Draw, Architecture, 우아한테크코스, 우테코, 멧돼지, 핑구, 수달]
+---
+
+# Architecture
+
+- 코드의 Architecture pattern은 MVVM을 사용한다.
+- Presenter, Domain, Data 3개의 layer로 분리한다.(Domain은 모듈 분리,Presenter, Data 은 package 분리 )
+
+## ViewModel
+
+- ViewModel(Presentation Layer)에는 안드로이드 의존성을 제거함(LiveData,AAC ViewModel 제외)
+- import android.* 코드가 없도록 유지(AAC관련 코드 제외, android.arch.*)
+- 다만 데이터에 해당되는```R.string.xxx```, ``` R.dimen.xxx```, ``` R.color.xxx```를 사용하고 싶다면 의존성 주입을 통하여 사용하도록 함 (`R.id.xxx`, `R.layout.xxx`는 불가)
+
+## Model Mapping 정의/구조
+
+- Model은 각각의 layer에 만들어져서 mapping되도록 구성한다
+- 예) User라는 개념의 model에 대한 각각 layer에서의 정의
+
+### Domain
+
+```kotlin
+data class User(){}
+```
+
+
+
+### Presentation
+
+```kotlin
+data class UiUser(){}
+ 
+fun User.toPresentation(): UiUser
+fun UiUser.toDomain(): User
+```
+
+
+
+### Data
+
+```kotlin
+data class DataUser(){}
+ 
+fun DataUser.toDomain(): User
+fun User.toData(): DataUser
+```
+
+
+
+### Remote(Retrofit3 DTO)
+
+```kotlin
+data class UserRequest(){}
+data class UserResponse(){}
+// Response,Request 앞의 네이밍은 {도메인 모델}-{행위}형식을 지키되 상황의 맞도록 개발자가 변형 가능
+
+fun UserResponse.toData(): DataUser
+fun DataUser.toHttpResponse(): UserResponse
+
+fun DataUser.toHttpRequest(): UserResquest
+```
+
+
+
+### Local(Room DTO)
+
+```kotlin
+data class UserEntity(){}
+ 
+fun UserEntity.toData(): DataUser
+fun DataUser.toEntity(): UserEntity
+```
+
+ 
+
