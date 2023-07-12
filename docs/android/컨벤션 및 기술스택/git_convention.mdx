@@ -14,6 +14,32 @@ tags: [Android, Trip-Draw, StyleGuide, Github Convention, Convention, 우아한�
 3. 1개의 issue 내에 세부작업마다 commit한다.(커밋은 원자단위로 찍는다)
 4. 1개의 feature 끝나면 pull request 한다. ⇒ 코드리뷰후 merge되면 해당 issue를 close 한다.
 
+## prefix
+  - [feat] : 기능 추가, kotlin 작업
+
+  - [ui] : xml 작업
+
+  - [fix] : 에러 수정, 버그 수정
+
+  - [docs] : README, 문서
+
+  - [refactor] : 코드 리펙토링 (기능 변경 없이 코드만 수정할 때)
+
+  - [chore] : gradle 세팅, 위의 것 이외에 거의 모든 것
+
+  - [util] : util 관련 작업시
+
+  - [style]: 코드 스타일 변경
+
+  - [add] : 파일 추가 시
+
+  - [test] : 테스트
+    
+  - [release] : 릴리즈 시
+
+  - [hotfix] : 핫픽스 시 
+
+
 ## Issue Convention
 
 ```markdown
@@ -37,7 +63,7 @@ tags: [Android, Trip-Draw, StyleGuide, Github Convention, Convention, 우아한�
   - [prefix] 화면명 / 이슈명
   - [prefix] 이슈명 (util 혹은 chore 작업시 화면명은 적지 않는다)
 - github label
-  - commit prefix 과 동일하게 단다.
+  - prefix 와 동일하게 단다.
   - android를 단다.
   - 해당인원의 이름 Label을 단다.
 
@@ -52,31 +78,6 @@ tags: [Android, Trip-Draw, StyleGuide, Github Convention, Convention, 우아한�
 - **[feat] 메인_홈 / 무한스크롤 구현 (#433)**
 
 - commit message에는 마침표(.)를 찍지않는다. 
-
-  - commit prefix
-
-    - [feat] : 기능 추가, kotlin 작업
-
-    - [ui] : xml 작업
-
-    - [fix] : 에러 수정, 버그 수정
-
-    - [docs] : README, 문서
-
-    - [refactor] : 코드 리펙토링 (기능 변경 없이 코드만 수정할 때)
-
-    - [chore] : gradle 세팅, 위의 것 이외에 거의 모든 것
-
-    - [util] : util 관련 작업시
-
-    - [style]: 코드 스타일 변경
-
-    - [add] : 파일 추가 시
-
-    - [test] : 테스트
-
-  
-
 
 
 ## PR Convention
