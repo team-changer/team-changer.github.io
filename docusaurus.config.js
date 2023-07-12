@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "TripDraw",
+  title: "Trip Draw",
   tagline: "나만의 여행을 스케치하고 공유하다.",
   favicon: "img/favicon.ico",
   url: "https://trip-draw.github.io",
@@ -59,10 +59,10 @@ const config = {
       image: "img/docusaurus-social-card.jpg",
       navbar: {
         title: "TripDraw",
-        // logo: {
-        //   alt: 'My Site Logo',
-        //   src: 'img/logo.svg',
-        // },
+        logo: {
+          alt: 'TripDraw Logo',
+          src: 'img/logo.png',
+        },
         items: [
           { to: "/blog/archive", label: "블로그", position: "left" },
           {

@@ -49,10 +49,11 @@ html[data-theme='dark'] .header-github-link:before {
 }
 
 /* TITLE */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico');
+@import url('https://fonts.googleapis.com/css2?family=Bungee');
 
 .navbar__title {
-  font-family: 'Pacifico';
+  font-family: 'Bungee';
   font-weight: 400;
   font-size:larger;
+  /* font-style: var(--ifm-color-primary); */
 }
