@@ -64,7 +64,7 @@ const config = {
         //   src: 'img/logo.svg',
         // },
         items: [
-          { to: "/blog", label: "블로그", position: "left" },
+          { to: "/blog/archive", label: "블로그", position: "left" },
           {
             to: '/docs/common', 
             label: '팀', 
