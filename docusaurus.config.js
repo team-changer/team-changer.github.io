@@ -45,6 +45,7 @@ const config = {
           postsPerPage: 1,
           editUrl:
             "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
+          archiveBasePath: "/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -64,7 +65,7 @@ const config = {
           src: 'img/logo.png',
         },
         items: [
-          { to: "/blog/archive", label: "블로그", position: "left" },
+          { to: "/blog", label: "블로그", position: "left" },
           {
             to: '/docs/common', 
             label: '팀', 
