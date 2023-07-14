@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://trip-draw.github.io/</id>
+    <id>https://tripdraw.blog/</id>
     <title>Trip Draw Blog</title>
     <updated>2023-07-12T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://trip-draw.github.io/"/>
+    <link rel="alternate" href="https://tripdraw.blog/"/>
     <subtitle>Trip Draw Blog</subtitle>
-    <icon>https://trip-draw.github.io/img/favicon.ico</icon>
+    <icon>https://tripdraw.blog/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Docusaurus 이용하여 팀 블로그 만들기]]></title>
-        <id>https://trip-draw.github.io/1</id>
-        <link href="https://trip-draw.github.io/1"/>
+        <id>https://tripdraw.blog/1</id>
+        <link href="https://tripdraw.blog/1"/>
         <updated>2023-07-12T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[안녕하세요. 트립드로우 팀의 허브입니다.]]></summary>
         <content type="html"><![CDATA[<p>안녕하세요. 트립드로우 팀의 허브입니다.<br>

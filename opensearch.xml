@@ -4,8 +4,8 @@
   <ShortName>Trip Draw</ShortName>
   <Description>Search Trip Draw</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://trip-draw.github.io/img/favicon.ico</Image>
-  <Url type="text/html" method="get" template="https://trip-draw.github.io/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://trip-draw.github.io/opensearch.xml" />
-  <moz:SearchForm>https://trip-draw.github.io/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://tripdraw.blog/img/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://tripdraw.blog/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://tripdraw.blog/opensearch.xml" />
+  <moz:SearchForm>https://tripdraw.blog/</moz:SearchForm>
 </OpenSearchDescription>

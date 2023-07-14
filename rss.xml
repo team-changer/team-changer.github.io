@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Trip Draw Blog</title>
-        <link>https://trip-draw.github.io/</link>
+        <link>https://tripdraw.blog/</link>
         <description>Trip Draw Blog</description>
         <lastBuildDate>Wed, 12 Jul 2023 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>ko</language>
         <item>
             <title><![CDATA[Docusaurus 이용하여 팀 블로그 만들기]]></title>
-            <link>https://trip-draw.github.io/1</link>
-            <guid>https://trip-draw.github.io/1</guid>
+            <link>https://tripdraw.blog/1</link>
+            <guid>https://tripdraw.blog/1</guid>
             <pubDate>Wed, 12 Jul 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[안녕하세요. 트립드로우 팀의 허브입니다.]]></description>
             <content:encoded><![CDATA[<p>안녕하세요. 트립드로우 팀의 허브입니다.<br>
