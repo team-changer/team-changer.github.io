@@ -24,9 +24,7 @@ const config = {
   markdown: {
     mermaid: true,
   },
-  themes: [
-    '@docusaurus/theme-mermaid'
-  ],
+  themes: ["@docusaurus/theme-mermaid"],
 
   presets: [
     [
@@ -38,14 +36,14 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           editUrl:
-          "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
+            "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
         },
         blog: {
           showReadingTime: true,
           postsPerPage: 1,
           editUrl:
             "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
-          archiveBasePath: "/",
+          routeBasePath: "/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -61,25 +59,25 @@ const config = {
       navbar: {
         title: "TripDraw",
         logo: {
-          alt: 'TripDraw Logo',
-          src: 'img/logo.png',
+          alt: "TripDraw Logo",
+          src: "img/logo.png",
         },
         items: [
-          { to: "/blog", label: "블로그", position: "left" },
+          { to: "/archive", label: "블로그", position: "left" },
           {
-            to: '/docs/common', 
-            label: '팀', 
-            position: 'left'
+            to: "/docs/common",
+            label: "팀",
+            position: "left",
           },
           {
-            to: '/docs/backend', 
-            label: '백엔드', 
-            position: 'left'
+            to: "/docs/backend",
+            label: "백엔드",
+            position: "left",
           },
           {
-            to: '/docs/android', 
-            label: '안드로이드', 
-            position: 'left'
+            to: "/docs/android",
+            label: "안드로이드",
+            position: "left",
           },
           {
             href: "https://github.com/woowacourse-teams/2023-trip-draw",
@@ -102,8 +100,8 @@ const config = {
       },
       mermaid: {
         theme: {
-          light: 'neutral', 
-          dark: 'dark'
+          light: "neutral",
+          dark: "dark",
         },
       },
     }),
