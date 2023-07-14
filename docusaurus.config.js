@@ -9,7 +9,7 @@ const config = {
   title: "Trip Draw",
   tagline: "나만의 여행을 스케치하고 공유하다.",
   favicon: "img/favicon.ico",
-  url: "https://trip-draw.github.io",
+  url: "https://tripdraw.blog",
   baseUrl: "/",
   organizationName: "trip-draw",
   projectName: "trip-draw.github.io",

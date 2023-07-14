@@ -1,10 +1,10 @@
 {
     "index_name": "gh",
     "start_urls": [
-      "https://trip-draw.github.io/"
+      "https://tripdraw.blog/"
     ],
     "sitemap_urls": [
-      "https://trip-draw.github.io/sitemap.xml"
+      "https://tripdraw.blog/sitemap.xml"
     ],
     "sitemap_alternate_links": true,
     "stop_urls": [
