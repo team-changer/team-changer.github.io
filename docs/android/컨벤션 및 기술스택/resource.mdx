@@ -4,7 +4,19 @@ last_update:
   date: 2023/07/06
   author: 멧돼지
 slug: Resource
-tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코스, 우테코, 멧돼지, 핑구, 수달]
+tags:
+  [
+    Android,
+    Trip-Draw,
+    StyleGuide,
+    Resource,
+    Convention,
+    우아한테크코스,
+    우테코,
+    멧돼지,
+    핑구,
+    수달,
+  ]
 ---
 
 # Resource
@@ -15,14 +27,14 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 
 ### WHAT
 
-| Prefix      | 설명                                                         |
-| ----------- | ------------------------------------------------------------ |
-| `activity_` | Activity에서 쓰이는 layout                                   |
-| `fragment_` | Fragment에서 쓰이는 layout                                   |
-| `dialog_`   | Dialog에서 쓰이는 layout                                     |
-| `view_`     | CustomView에서 쓰이는 layout                                 |
+| Prefix      | 설명                                                              |
+| ----------- | ----------------------------------------------------------------- |
+| `activity_` | Activity에서 쓰이는 layout                                        |
+| `fragment_` | Fragment에서 쓰이는 layout                                        |
+| `dialog_`   | Dialog에서 쓰이는 layout                                          |
+| `view_`     | CustomView에서 쓰이는 layout                                      |
 | `item_`     | RecyclerView, GridView, ListView등에서 ViewHolder에 쓰이는 layout |
-| `layout_`   | `<include/>`로 재사용되는 공통의 layout                      |
+| `layout_`   | `<include/>`로 재사용되는 공통의 layout                           |
 
 ### 예시
 
@@ -32,8 +44,6 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 - `view_rating`: 커스텀으로 만든 RatingView의 layout
 - `item_story`: 글귀 목록에서 사용되는 각각의 item의 layout
 - `layout_template`: 재사용되는 글 템플릿 layout
-
-
 
 ## ID
 
@@ -49,31 +59,29 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 
 ### WHAT
 
-| View               | Prefix     |
-| ------------------ | ---------- |
-| TextView           | `tv_`      |
-| ImageView          | `iv_`      |
-| CheckBox           | `cb_`      |
-| RecyclerView       | `rv_`      |
-| EditText           | `et_`      |
-| ProgressBar        | `pb_`      |
-| xxxLayout          | `layout_`  |
-| NestedScrollView   | `nsv_`     |
-| Switch             | `switch_`  |
-| Button,ImageButton | ```btn_``` |
-| ViewPager          | ```vp_```  |
-| BottomNavigation   | ```bn_```  |
+| View               | Prefix    |
+| ------------------ | --------- |
+| TextView           | `tv_`     |
+| ImageView          | `iv_`     |
+| CheckBox           | `cb_`     |
+| RecyclerView       | `rv_`     |
+| EditText           | `et_`     |
+| ProgressBar        | `pb_`     |
+| xxxLayout          | `layout_` |
+| NestedScrollView   | `nsv_`    |
+| Switch             | `switch_` |
+| Button,ImageButton | `btn_`    |
+| ViewPager          | `vp_`     |
+| BottomNavigation   | `bn_`     |
 
 ### 기타
 
-- 버튼기능을 위한 View로 ImageView, TextView를 사용한다면 네이밍을 ```btn_```으로 사용한다.
+- 버튼기능을 위한 View로 ImageView, TextView를 사용한다면 네이밍을 `btn_`으로 사용한다.
 
 ### 예시
 
 - `btn_close`: 닫기 ImageView
 - `btn_select`: 선택 TextView
-
-
 
 ## Drawable
 
@@ -91,9 +99,7 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 
 ### image 용량
 
-- ```img_xxx```의 경우 파일의 크기가 큰경우가 많으므로 [tinypng](https://tinypng.com/)에서 파일크기를 줄인뒤에 추가 해주어야 한다.
-
-
+- `img_xxx`의 경우 파일의 크기가 큰경우가 많으므로 [tinypng](https://tinypng.com/)에서 파일크기를 줄인뒤에 추가 해주어야 한다.
 
 ### Selector
 
@@ -106,21 +112,19 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 | Disabled | `selector_xxx_disabled` |
 | Selected | `selector_xxx_selected` |
 
-``````xml
+```xml
 <?xml version="1.0"encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/btn_main_keepin_checked" 
+    <item android:drawable="@drawable/btn_main_keepin_checked"
 					android:state_checked="true" />
     <item android:drawable="@drawable/btn_main_keepin_unchecked"
 					android:state_checked="false" />
 </selector>
-``````
-
-
+```
 
 ### Background
 
-#### color 
+#### color
 
 - color의 경우 color 패키지에 위치한다
 
@@ -128,20 +132,18 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 
 #### shape drawable (button background, dialog background, ...)
 
-- ```shape_[color]_[fill/line/fill_line]_[radiusNum]_[shape].xml```
+- `shape_[color/optional]_[fill/line/fill_line]_[radiusNum]_[shape].xml`
 - shape ⇒ rect, tri, circle
 - 아래와 같은 파일
 
-``````xml
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid android:color="@color/black_cc000000" />
     <corners android:radius="4dp" />
 </shape>
-``````
-
-
+```
 
 ## Dimension
 
@@ -157,14 +159,14 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 ```xml
 <dimen name="margin_default_vertical">?dp</dimen>
 <dimen name="margin_default_horizontal">?dp</dimen>
-<dimen name="margin_recyclerview_item">?dp</dimen>  
+<dimen name="margin_recyclerview_item">?dp</dimen>
 ```
 
 2번이상 쓰이는경우는 dimen에 정의해주는 것을 강제하고 1번만 쓰이는경우에는 xml코드에 넣어도 괜찮은것으로 한다.
 
 ### Height/Size
 
-- 1:1 비율로 같은 값이 들어갈때는 `size`로 하고 높이와 너비값이 다를때는 ```height```,```width```로 명명한다.
+- 1:1 비율로 같은 값이 들어갈때는 `size`로 하고 높이와 너비값이 다를때는 `height`,`width`로 명명한다.
 
 ```xml
 <dimen name="toolbar_height">56dp</dimen>
@@ -175,11 +177,9 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
 
 - `android:xxxLeft/android:xxxRight` 대신 `android:xxxStart/android:xxxEnd`로 사용한다.(기타 Left/Right로 사용하는 부분 모두)
 
-
-
 ## String
 
-- `<WHERE>_<DESCRIPTION>`
+- `<WHEN(optional)>_<DESCRIPTION>`
 - 특정화면에서 쓰이는 텍스트 아니라 여러군데에서 공통으로 재사용될 텍스트라면 `common_<DESCRIPTION>`로 이름을 짓는다
 - 사용처에대한 주석을 단다.(재활용 관점보다는 localizing 과 가독성을 중요시한다.)
 
@@ -188,17 +188,17 @@ tags: [Android, Trip-Draw, StyleGuide, Resource, Convention, 우아한테크코�
     <!-- Common -->
     <string name="app_name">TripDraw</string>
     <string name="question_email">teamTripDraw@gmail.com</string>
-    
+
     <!-- IntroActivity -->
     <string name="intro_desc_title">앱 이름</string>
     <string name="intro_content">여행 그리실?</string>
-   
+
     <!-- HomeMainFragment -->
-    <string name="home_waiting_ottor">수달은/n기다린다</string>
-    <string name="home_waiting_pig">돼지는 밥을 기다린다</string>
+    <string name="et_nickname">멧달</string>
+    <string name="btn_duplication_check">핑구에게 중복 검사를 받습니다</string>
     <string name="home_stone_pinggu">과연 돌구일까 돌핑일까</string>
 </resources>
-   
+
 ```
 
 ### 문단
