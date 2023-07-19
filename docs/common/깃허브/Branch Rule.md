@@ -1,6 +1,6 @@
 ---
 title: "브랜치 룰 설정"
-slug: branch-rule
+slug: /common/github/branch-rule
 last_update:
   date: 2023/07/19
   author: 허브

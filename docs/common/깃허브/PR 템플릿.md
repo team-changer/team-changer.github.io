@@ -1,6 +1,6 @@
 ---
 title: "PR 템플릿 설정"
-slug: pr-template
+slug: /common/github/pr-template
 last_update:
   date: 2023/07/19
   author: 허브
