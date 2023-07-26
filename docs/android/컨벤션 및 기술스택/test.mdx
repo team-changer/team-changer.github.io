@@ -4,13 +4,27 @@ last_update:
   date: 2023/07/06
   author: 멧돼지
 slug: Test
-tags: [Android, Trip-Draw, StyleGuide, Test, Convention, 우아한테크코스, 우테코, 멧돼지, 핑구, 수달]
+tags:
+  [
+    Android,
+    Trip-Draw,
+    StyleGuide,
+    Test,
+    Convention,
+    우아한테크코스,
+    우테코,
+    멧돼지,
+    핑구,
+    수달,
+  ]
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-안드로이드, 순수 Java, kotlin 모듈 모두 Junit 5를 사용한다.
+안드로이드의 단위 테스트에는 Junit4를 사용한다.
+도메인과 같은 순수 Java, kotlin 모듈은 Junit5를 사용한다.
+이렇게 사용하기로 한 배경은 [해당 이슈](https://github.com/woowacourse-teams/2023-trip-draw//81)에서 다룬다.
 
 ## 명명법
 
@@ -77,7 +91,6 @@ fun Calculator.bar() { /* ... */ }
 ```kotlin
 class CalculatorExtensionTest { /* ... */ }
 ```
-
 
 </TabItem>
 </Tabs>

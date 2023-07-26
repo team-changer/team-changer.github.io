@@ -4,29 +4,33 @@ last_update:
   date: 2023/07/06
   author: 멧돼지
 slug: Kotlin
-tags: [Android, Trip-Draw, StyleGuide, Kotlin, Convention, 우아한테크코스, 우테코, 멧돼지, 핑구, 수달]
+tags:
+  [
+    Android,
+    Trip-Draw,
+    StyleGuide,
+    Kotlin,
+    Convention,
+    우아한테크코스,
+    우테코,
+    멧돼지,
+    핑구,
+    수달,
+  ]
 ---
 
 # Kotlin
 
-
-
 ## Concepts
-
-
 
 ### Custom accessor VS Function
 
 - 행동을 나타내는 개념이면 function
-- 상태나 값등 정보를 가져오는 개념이면 custom accessor
+- 상태나 값 등의 정보를 가져오는 개념이면 custom accessor
 
 > [Kotlin: should I define Function or Property?](https://blog.kotlin-academy.com/kotlin-should-i-define-function-or-property-6786951da909)
 
-
-
 ## Naming Rules
-
-
 
 ### Package
 
@@ -36,15 +40,11 @@ tags: [Android, Trip-Draw, StyleGuide, Kotlin, Convention, 우아한테크코스
 package kr.co.prnd.domain
 ```
 
-
-
 - 연결된 단어를 붙여서 사용해야 하는 경우에는 camelCase로 처리한다.(최대한 한단어로 끝내는것을 지향한다)
 
 ```
 package com.example.myProject
 ```
-
-
 
 - underscore(`_`)는 사용하지 않는다.
 
@@ -55,24 +55,18 @@ package kr.co.prnd.domain_module
 
 [Kotlin의 코딩컨벤션](https://kotlinlang.org/docs/coding-conventions.html#naming-rules) 에서는 **camelCase를 허용**하고 있고, [안드로이드의 코딩컨벤션](https://developer.android.com/kotlin/style-guide#package_names) 에서는 **항상 소문자로만 작성**하도록 나와 있으나 팀 내부의 규칙에 따라 카멜 케이스를 허용할 수 있다
 
-
-
-
-
 ### LiveData
 
 ### 함수 이름
 
 - 초반 라이브 코딩시 작성 (추후 PRND 참고)
 
-
-
 ### Listener
 
 #### Lisetner 이름 (함수 전달시 네이밍)
 
-- function을 2개 이하를 가진 경우, `fun OnXXXXListener`  (인터페이스를 사용하지않고 고차함수로 사용한다.)
-- function을 3개 이상 가진 경우, `interface XXXListener`  (인터페이스를 사용하여 전달한다.)
+- function을 2개 이하를 가진 경우, `fun OnXXXXListener` (인터페이스를 사용하지않고 고차함수로 사용한다.)
+- function을 3개 이상 가진 경우, `interface XXXListener` (인터페이스를 사용하여 전달한다.)
 
 ## Formatting
 
@@ -90,8 +84,6 @@ when (value) {
     // ...
 }
 ```
-
-
 
 - 여러개의 조건을 동시에 사용하는 경우 `->`를 포함하여 한줄에 작성한다.
 
