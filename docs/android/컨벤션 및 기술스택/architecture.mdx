@@ -12,6 +12,14 @@ tags: [Android, Trip-Draw, Architecture, 우아한테크코스, 우테코, 멧�
 - 코드의 Architecture pattern은 MVVM을 사용한다.
 - Presenter, Domain, Data 3개의 layer로 분리한다.(Domain은 모듈 분리,Presenter, Data 은 package 분리 )
 
+## DataBinding
+- 커스텀 bindingAdapter prefix의 경우 일반적으로 사용하는 ```app:``` 이 아닌 트립 드로우 프로젝트의 
+custom bindingAdapter임을 명시하기위해
+```td:``` 를 사용한다.
+```xml
+td:HomeUiStateBeforeTrip="@{homeViewModel.homeUiState}"
+```
+
 ## ViewModel
 
 - ViewModel(Presentation Layer)에는 안드로이드 의존성을 제거함(LiveData,AAC ViewModel 제외)
