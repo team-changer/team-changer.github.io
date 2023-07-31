@@ -25,7 +25,7 @@ app:homeUiStateBeforeTrip="@{homeViewModel.homeUiState}"
 - import android.* 코드가 없도록 유지(AAC관련 코드 제외, android.arch.*)
 - 다만 데이터에 해당되는```R.string.xxx```, ``` R.dimen.xxx```, ``` R.color.xxx```를 사용하고 싶다면 의존성 주입을 통하여 사용하도록 함 (`R.id.xxx`, `R.layout.xxx`는 불가)
 
-## Model Mapping 정의/구조
+## Model Mapping 정의
 
 - Model은 각각의 layer에 만들어져서 mapping되도록 구성한다
 - 예) User라는 개념의 model에 대한 각각 layer에서의 정의
@@ -76,4 +76,8 @@ fun UserEntity.toData(): DataUser
 fun DataUser.toEntity(): UserEntity
 ```
 
+## Data Layer에서의 Model Mapping 구조
 
+- Remote/Local에서 DTO를 반환한다.
+- DataSource에서 Result<DataModel> 형태로 반환한다. (DTO -> DataModel)
+- Repository에서 Result<Domain> 형태로 반환한다. (DataModel -> Domain)
