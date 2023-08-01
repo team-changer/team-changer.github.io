@@ -79,8 +79,8 @@ fun DataUser.toEntity(): UserEntity
 ## Data Layer에서의 Model Mapping 구조
 
 - Remote/Local에서 DTO를 반환한다.
-- DataSource에서 Result<DataModel> 형태로 반환한다. (DTO -> DataModel)
-- Repository에서 Result<Domain> 형태로 반환한다. (DataModel -> Domain)
+- DataSource에서 ```Result<DataModel>``` 형태로 반환한다. (DTO -> DataModel)
+- Repository에서 ```Result<Domain>``` 형태로 반환한다. (DataModel -> Domain)
 
 ### ```map``` (수달 한 건 했다!)
 - Repository에서 Data model을 Domain model로 변환할 때, Result 내부 값의 형변환을 위해 ```map```을 사용한다.
