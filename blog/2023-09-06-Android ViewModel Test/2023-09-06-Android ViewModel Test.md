@@ -17,17 +17,11 @@ tags: [android, viewmodel, test]
 
 테스트는 WorkerThread에서 작동합니다.
 
-테스트는 MainThread에서 수행하지 않고, WorkerThread에서 작동합니다. 이것이 왜 LiveData value 변경 테스트와 Coroitine 테스트의 실패의 원인이 될까요?  
+테스트는 MainThread에서 수행하지 않고, WorkerThread에서 작동합니다. 이것이 왜 LiveData value 변경 테스트와 Coroutine 테스트의 실패의 원인이 될까요?  
 우선, 테스트가 WorkerThread에서 작동한다는 것을 확인해 보고, 이것이 왜 테스트 실패의 원인이 되는지 알아보겠습니다. 아래의 코드를 보면 테스트가 "Test worker" 스레드에서 동작하는 것을 확인할 수 있습니다.
 
 ```kotlin
 class StudyTestThread {
-
-    @Test
-    fun `테스트는 메인 스레드에서 수행되지 않는다`() {
-        val currentThread = Thread.currentThread()
-        assertFalse(currentThread.isDaemon)
-    }
 
     @Test
     fun `테스트는 테스트 작업 스레드에서 수행된다`() {
@@ -63,7 +57,7 @@ internal class MainViewModelTest {
 
     @Before
     fun setUp() {
-        productRepository = Fake.ProductRepository()
+        productRepository = Fake.ProductRepository()    // 테스트를 위한 가짜 객체로 설정해줍니다
         sut = MainViewModel(productRepository)
     }
 
@@ -111,7 +105,7 @@ protected void postValue(T value) {
 }
 ```
 
-앞서 설명드렸듯이 테스트는 `Tast worker` 스레드에서 동작하지만, 테스트에서 확인하고자하는 LiveData의 값 변경은 `Main` 스레드에서 작업이 일어나야합니다. 이 과정에서 오류가 발생합니다.
+앞서 설명드렸듯이 테스트는 `Test worker` 스레드에서 동작하지만, 테스트에서 확인하고자하는 LiveData의 값 변경은 `Main` 스레드에서 작업이 일어나야합니다. 이 과정에서 오류가 발생합니다.
 
 ### InstantTaskExecutorRule()
 
@@ -178,7 +172,7 @@ class MainViewModel(private val productRepository: ProductRepository) : ViewMode
     val products: LiveData<List<Product>> get() = _products
 
     fun fetchAllProducts() {
-        viewModelScope.launch { // 새로운 비동기 스레드 사용
+        viewModelScope.launch { //
             _products.value = productRepository.getAllProducts()
         }
     }
@@ -211,26 +205,25 @@ internal class MainViewModelTest {
 viewModelScope.launch는 Dispatcher가 적용되지 않으면 MainThread에서 작동합니다.
 
 ```kotlin
-public fun CoroutineScope.launch(
-    context: CoroutineContext = EmptyCoroutineContext,
-    start: CoroutineStart = CoroutineStart.DEFAULT,
-    block: suspend CoroutineScope.() -> Unit
-): Job {
-    val newContext = newCoroutineContext(context)
-    val coroutine = if (start.isLazy)
-        LazyStandaloneCoroutine(newContext, block) else
-        StandaloneCoroutine(newContext, active = true)
-    coroutine.start(start, coroutine, block)
-    return coroutine
-}
+public val ViewModel.viewModelScope: CoroutineScope
+    get() {
+        val scope: CoroutineScope? = this.getTag(JOB_KEY)
+        if (scope != null) {
+            return scope
+        }
+        return setTagIfAbsent(
+            JOB_KEY,
+            CloseableCoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        )
+    }
 ```
 
-테스트는 `Tast worker` 스레드에서 동작하고, 코루틴은 `Main` 스레드에서 작업이 일어나야합니다. 이 과정에서 오류가 발생합니다.
+테스트는 `Test worker` 스레드에서 동작하고, 코루틴은 `Main` 스레드에서 작업이 일어나야합니다. 이 과정에서 오류가 발생합니다.
 
 ### Dispatchers.setMain / Dispatchers.resetMain
 
-스레드가 달라서 발생하는 문제를 해결하기 위해 `TestDispatcher.Main`으로 설정해주어야 합니다. 즉, 테스트가 Main Thread에서 일어나도록 합니다.  
-테스트가 종료된 후에는 테스트가 메인 스레드에 영향을 주지 않도록 `Tast worker` 스레드에서 동작하도록 재설정합니다.
+스레드가 달라서 발생하는 문제를 해결하기 위해 메인을 사용하는 Dispatcher가 TestDispatcher를 사용하도록 변경합니다. 즉, 테스트가 일어나는 스레드를 통일합니다.  
+테스트가 종료된 후에는 다시 초기 상태처럼 메인 스레드를 사용할 수 있도록 Dispatcher의 Main을 초기화합니다.
 
 ```kotlin
 internal class MainViewModelTest {
@@ -244,7 +237,7 @@ internal class MainViewModelTest {
     @Before
     @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
-        Dispatchers.setMain(UnconfinedTestDispatcher()) // 테스트에서 사용할 스레드를 메인 스레드로 변경합니다.
+        Dispatchers.setMain(UnconfinedTestDispatcher()) // Main Dispatcher를 변경한다.
         productRepository = Fake.ProductRepository()
         sut = MainViewModel(productRepository)
     }
@@ -252,7 +245,7 @@ internal class MainViewModelTest {
     @After
     @OptIn(ExperimentalCoroutinesApi::class)
     fun tearDown() {
-        Dispatchers.resetMain() // 테스트에서 사용할 스레드를 다시 테스트 스레드로 돌려놓습니다.
+        Dispatchers.resetMain() // Main Dispatcher를 초기 상태로 복구시킨다.
     }
 
     @Test
@@ -323,3 +316,7 @@ internal class MainViewModelTest {
 ```
 
 이해가 잘 되셨기를 바라며... 총총...
+
+## 참고자료
+
+https://tech.kakao.com/2021/11/08/test-code/
