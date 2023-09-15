@@ -219,6 +219,8 @@ public val ViewModel.viewModelScope: CoroutineScope
     }
 ```
 
+![Alt text](image.png)
+
 테스트는 `Test worker` 스레드에서 동작하고, 코루틴은 `Main` 스레드에서 작업이 일어나야합니다. 이 과정에서 오류가 발생합니다.
 
 ### Dispatchers.setMain / Dispatchers.resetMain
