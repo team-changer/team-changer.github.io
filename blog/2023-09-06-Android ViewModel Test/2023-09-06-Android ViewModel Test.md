@@ -5,8 +5,9 @@ authors: [otter]
 tags: [android, viewmodel, test]
 ---
 
-안녕하세요! 트립드로우 팀의 수달입니다.  
-이 글을 통해 안드로이드에서 ViewModel에 대한 테스트를 작성하는 방법에 대해 설명드려고 합니다. 단위 테스트가 무엇인지 이해하고, 적용해 본 경험이 있는 사람을 대상으로 설명하겠습니다.  
+안녕하세요! 트립드로우 팀의 수달입니다!  
+이 글을 통해 안드로이드에서 ViewModel에 대한 테스트를 작성하는 방법에 대해 설명드려고 합니다.  
+단위 테스트가 무엇인지 이해하고, 적용해 본 경험이 있는 사람을 대상으로 설명하겠습니다. 이 외에도 MVVM, LiveData, Coroutine, Thread에 대해서 완벽히는 아니더라도 알고 사용할 수 있다면 이해에 도움이 될 것이라 생각합니다.  
 이 글을 읽고 ViewModel 테스트와 친해지길 바랍니다! 화이팅!
 
 ## Android ViewModel Test
@@ -172,7 +173,7 @@ class MainViewModel(private val productRepository: ProductRepository) : ViewMode
     val products: LiveData<List<Product>> get() = _products
 
     fun fetchAllProducts() {
-        viewModelScope.launch { //
+        viewModelScope.launch {
             _products.value = productRepository.getAllProducts()
         }
     }
