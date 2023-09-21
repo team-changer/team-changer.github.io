@@ -33,13 +33,14 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          // showLastUpdateAuthor: true,
-          // showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           editUrl:
             "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
         },
         blog: {
           showReadingTime: true,
+          blogSidebarCount: 0,
           postsPerPage: 1,
           editUrl:
             "https://github.com/trip-draw/trip-draw.github.io/tree/main/",
