@@ -112,5 +112,7 @@ key 값에 패키지 이름과 클래스 이름이 합쳐진 형태(canonicalNam
 
 ## 참고자료
 [ViewModel 개요  |  Android 개발자  |  Android Developers](https://developer.android.com/topic/libraries/architecture/viewmodel?hl=ko)
+
 [ViewModel이란 무엇인가? ViewModel 초보를 위한 가이드 | 찰스의 안드로이드](https://www.charlezz.com/?p=44167)
+
 [상태 홀더 및 UI 상태  |  Android 개발자  |  Android Developers](https://developer.android.com/topic/architecture/ui-layer/stateholders?hl=ko)
