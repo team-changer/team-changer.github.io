@@ -16,12 +16,6 @@ pingu:
   url: https://github.com/pingu244
   image_url: https://github.com/pingu244.png
 
-changer:
-  name: 체인저
-  title: Backend
-  url: https://github.com/beer-2000
-  image_url: https://github.com/beer-2000.png
-
 herb:
   name: 허브
   title: Backend
