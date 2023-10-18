@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[7751],{9185:e=>{e.exports=JSON.parse('{"label":"hikari-cp","permalink":"/tags/hikari-cp","allTagsPath":"/tags","count":1}')}}]);
