@@ -75,17 +75,13 @@ function TeamProfileCard({
 
 function TeamProfileCardCol(props: ProfileProps) {
   return (
-    <TeamProfileCard {...props} className="col col--3 margin-bottom--lg" />
+    <TeamProfileCard {...props} className="col col--4 margin-bottom--lg" />
   );
 }
 
 export function ActiveTeamRow(): JSX.Element {
   return (
     <div className="row">
-      <TeamProfileCardCol
-        name="체인저"
-        githubUrl="https://github.com/beer-2000"
-      ></TeamProfileCardCol>
       <TeamProfileCardCol
         name="리오"
         githubUrl="https://github.com/Jaeyoung22"
