@@ -1,0 +1,307 @@
+---
+title: 무중단 배포 과정
+slug: nonstop-deploy
+authors: [reo]
+tags: [무중단배포, 블루-그린]
+---
+
+무중단 배포 과정을 설명한다.
+
+## 배포 방식
+
+무중단 배포 방식에는 여러 종류가 있으나, 현재의 제한된 인스턴스 환경에서 가장 최적의 방식이 포트 할당 방식의 블루-그린 방식이라고 판단했다. 기존에 사용하던 EC2에 그대로 적용하기 때문에 가장 저렴한 방식이기도 하다.
+하나의 인스턴스 내에서 두 개의 WAS에 각각 다른 포트를 할당하여 진행한다. 상세한 진행 과정은 아래와 같다.
+
+1. EC2(리눅스 서버)에 Nginx 1대와 스프링부트 jar 2개를 사용한다.
+-> Nginx는 80(http), 443(https) 포트를 사용하고 8080(스프링부트1), 8081(스프링부트2)에 포트 포워딩을 한다.
+2. 사용자는 서비스 주소로 접속한다 (80 또는 443 포트)
+3. Nginx는 사용자의 요청을 받아 **현재 연결된 스프링부트로 요청을 전달**한다.
+4. 배포가 필요하면 **Nginx와 연결되지 않은** 스프링부트로 배포한다.
+5. 새로 배포되는 스프링부트는 현재 연결된 스프링부트와 **다른 프로파일을 사용한다.**
+6. 배포가 끝나고 정상적으로 배포를 한 스프링부트가 구동중인지 확인한다.
+7. 5에서 확인한 스프링부트가 정상 구동중이면 `nginx reload`를 통해 해당 스프링부트의 포트를 nginx가 연결하도록 한다.
+8. **Nginx Reload는 1초 이내에 실행이 완료된다**
+9. 이 때, 프로파일 별로 분기를 타서 포트 포워딩을 진행한다.
+10. 만약 배포시 문제가 생겨서 rollback이 필요하면 ngix가 배포전에 연결되었던 스프링부트를 다시 연결한다.
+
+<br></br>
+
+
+## 상세 과정
+
+상세 과정은 아래와 같다.
+
+### 소스 파일 추가
+
+우선, 어플리케이션이 사용할 프로파일을 선택하기 위해 현재 프로파일을 확인하는 API를 구현한다.
+
+```java
+@RequiredArgsConstructor
+@RequestMapping("/profile")
+@RestController
+public class ProfileController {
+
+private final Environment environment;
+
+	@GetMapping
+	public String readProfile() {
+		return Arrays.stream(environment.getActiveProfiles())
+				.findFirst()
+				.orElse("");
+	}
+}
+
+```
+
+```java
+class ProfileControllerTest extends ControllerTest {
+
+@Test
+void 현재_프로파일을_읽는다() {
+	// when
+	String profile = RestAssured.given().log().all()
+			.when().get("/profile")
+			.then().log().all()
+			.statusCode(OK.value())
+			.extract().asString();
+
+	// then
+	assertThat(profile).isEqualTo("local");
+	}
+}
+
+```
+
+```java
+@Override
+public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(authInterceptor)
+		// ...
+		.excludePathPatterns("/profile");
+		// ...
+}
+
+```
+
+
+
+이제 현재 사용중인 프로파일을 반환할 수 있게 되었다.
+<br></br>
+
+다음으로, 프로파일 별로 사용할 포트를 application.yml에서 지정해주자.
+
+application-prod1.yml
+```
+spring:
+    profiles: prod1
+
+// ...
+
+server:
+    port: 8080
+
+```
+application-prod2.yml
+```
+spring:
+    profiles: prod2
+
+// ...
+
+server:
+    port: 8081
+
+```
+
+처음에는 application-prod.yml에서 구분선을 이용해 두 프로파일을 분리해주었는데, 인식을 하지 못한다.
+그러므로 yml파일을 프로파일마다 분리해준다.
+<br></br>
+
+### 서버 설정 변경
+
+다음으로, 서버의 설정을 변경한다. 아래와 같은 순서로 진행한다.
+
+1. nginx가 service-url.inc 내부에서 정의된 포트를 이용하도록 설정한다.
+2. 배포 스크립트에서 현재 서비스 중인 스프링부트의 프로파일을 확인하여 배포될 스프링부트의 프로파일과 포트를 설정한다.
+3. switch.sh에서 service-url.inc 내부의 포트를 변경한다.
+
+<br></br>
+
+#### 1. nginx가 service-url.inc 내부에서 정의된 포트를 이용하도록 설정한다.
+
+기존의 nginx 설정 파일을 아래와 같이 변경한다.
+
+```
+server {
+        // ...
+        include /(생략)/service-url.inc;
+
+        location / {
+		proxy_pass $service_url$request_uri;
+	}
+
+        location /post-images {
+                alias /var/www/html/file/post-images;
+                try_files $uri $uri/ =404;
+        }
+
+        location /route-images {
+                alias /var/www/html/file/route-images;
+                try_files $uri $uri/ =404;
+        }
+}
+
+```
+
+`include /(생략)/service-url.inc;`
+: 해당 설정 파일에서 `service-url.inc` 내부의 변수 등을 사용할 수 있게 한다.
+
+`proxy_pass $service_url$request_uri;`
+: service-url.inc에 설정된 url과 현재 요청이 가지고 있는 uri를 합친 Path로 요청을 보낸다.
+
+service-url.inc
+
+```
+set $service_url <http://127.0.0.1:8080>;
+
+```
+
+nginx 설정 파일에 `$service_url` 을 제공한다. 기본은 루프백 IP와 8080포트이다.
+<br></br>
+
+#### 2. 배포 스크립트에서 현재 서비스 중인 스프링부트의 프로파일을 확인하여 배포될 스프링부트의 프로파일과 포트를 설정한다.
+
+다음으로, 배포 시에 프로파일 별로 해당하는 포트사용하도록 스크립트를 변경하자.
+
+기존의 배포 스크립트는 아래와 같다.
+
+```
+echo "Start Deploy Script"
+// ...
+
+cd $ACTIONS_REPO_NAME
+git pull origin main
+git switch main
+
+echo "Change Directory"
+cd $REPOSITORY_NAME
+
+echo "Build"
+./gradlew bootJar
+
+echo "Copy"
+mv ./build/libs/$PROJECT_NAME.jar .
+
+echo "Shutdown Application"
+PID=$(pgrep -f $PROJECT_NAME)
+
+if [ -n $PID ]; then
+        kill -9 $PID
+    sleep 5
+fi
+
+echo "Start Server"
+nohup java -jar -Dspring.profiles.active=prod $PROJECT_NAME.jar 1>stdout.txt 2>err.txt &
+
+```
+
+변경된 배포 스크립트
+
+```
+echo "Start Deploy Script"
+// ...
+
+cd $ACTIONS_REPO_NAME
+git pull origin develop-backend
+git switch develop-backend
+
+echo "Change Directory"
+cd $REPOSITORY_NAME
+
+echo "Build"
+./gradlew bootJar
+
+echo "Copy"
+mv ./build/libs/$PROJECT_NAME.jar .
+
+echo "Check Current Profile"
+# 현재 사용중인 프로필을 확인한다
+CURRENT_PROFILE=$(curl -s <https://dev.tripdraw.site/profile>)
+echo "Current Profile : $CURRENT_PROFILE"
+
+prod1="prod1"
+prod2="prod2"
+
+# 사용할 프로파일과 포트를 설정한다.
+if [ "$CURRENT_PROFILE" = "$prod1" ]
+then
+        IDLE_PROFILE="$prod2"
+        IDLE_PORT=8081
+elif [ "$CURRENT_PROFILE" = "$prod2" ]
+then
+        IDLE_PROFILE="$prod1"
+        IDLE_PORT=8080
+else
+        echo "No Valid Profile"
+        echo "Set Profile as prod1"
+        IDLE_PROFILE="$prod1"
+        IDLE_PORT=8080
+fi
+
+echo "Idle Profile : $IDLE_PROFILE, Idle Port : $IDLE_PORT"
+
+// 어플리케이션을 띄울 포트를 변경한다.
+echo "Switching"
+sleep 10
+(생략)/switch.sh
+
+echo "Shutdown Existing Application"
+PID=$(pgrep -f $PROJECT_NAME)
+
+if [ -n "$PID" ]; then
+        kill -9 $PID
+        sleep 5
+fi
+
+echo "Start Server"
+nohup java -jar -Dspring.profiles.active=$IDLE_PROFILE $PROJECT_NAME.jar 1>stdout.txt 2>err.txt &
+
+```
+
+스크립트에 주석으로 해당 과정에 대한 설명을 작성했다.
+<br></br>
+
+#### 3. switch.sh에서 service-url.inc 내부의 포트를 변경한다.
+
+switch.sh
+
+```
+CURRENT_PROFILE=$(curl -s (생략))
+
+// 사용할 포트 설정
+prod1="prod1"
+prod2="prod2"
+
+if [ "$CURRENT_PROFILE" = "$prod1" ]
+then
+  IDLE_PORT=8081
+elif [ "$CURRENT_PROFILE" = "$prod2" ]
+then
+  IDLE_PORT=8080
+else
+  echo "No Valid Profile"
+  echo "Set profile as prod1"
+  IDLE_PORT=8080
+fi
+
+echo "Switch Target Port: $IDLE_PORT"
+echo "Swith"
+// servic-url.inc에 있는 $service_url을 설정 값으로 변경하며 출력도 동시에 한다.
+echo "set \\$service_url <http://127.0.0.1>:${IDLE_PORT};" |sudo tee /etc/nginx/conf.d/service-url.inc
+
+echo "Nginx Reload"
+sudo service nginx reload
+
+```
+
+위와 같은 방법으로 변경된 포트를 사용하도록 nginx를 reload하여 무중단 배포를 구현했다.
