@@ -63,14 +63,51 @@ private val viewModel: MainViewModel by lazy {
 
 여기서 ViewModelProvider는 생성되면서 `ViewModelStoreOwner`와 `Factory`(optional)을 요구합니다. Factory를 주지않으면 DefaultFactory를 사용합니다.
 
-잠깐! 여기서 왜 ViewModelStoreOwner자리에 `this`(여기서는 Activity)를 넘기게 되는걸까요? ViewModelStoreOwner 는 말그대로 ViewModelStore를 가지고 있는 애들을 가리키는 인터페이스입니다.
+잠깐! 여기서 왜 ViewModelStoreOwner자리에 `this`(여기서는 Activity)를 넘기게 되는걸까요? 
+ViewModelStoreOwner 는 말그대로 ViewModelStore를 가지고 있는 인터페이스입니다.
 
-![./blog_viewModelStoreOwner.png](./blog_viewModelStoreOwner.png)
+```java
+public interface ViewModelStoreOwner {
+    /**
+     * Returns owned {@link ViewModelStore}
+     *
+     * @return a {@code ViewModelStore}
+     */
+    @NonNull
+    ViewModelStore getViewModelStore();
+}
+```
 
-[ComponentActivity](https://developer.android.com/reference/androidx/activity/ComponentActivity), [Fragment](https://developer.android.com/reference/androidx/fragment/app/Fragment), [NavBackStackEntry](https://developer.android.com/reference/androidx/navigation/NavBackStackEntry) 이 이를 구현하고 있어요. 그리고 이 `ViewModelStoreOwner`는 `ViewModelStore`를 주는 `getViewModelStore()`를 가지고 있습니다.
+[ComponentActivity](https://developer.android.com/reference/androidx/activity/ComponentActivity), [Fragment](https://developer.android.com/reference/androidx/fragment/app/Fragment), [NavBackStackEntry](https://developer.android.com/reference/androidx/navigation/NavBackStackEntry) 이 `ViewModelStoreOwner`를 구현하고 있어요. 그리고 `ViewModelStoreOwner`는 `ViewModelStore`를 주는 `getViewModelStore()`를 가지고 있습니다.
 
 
-![./blog_getViewModelStore.png](./blog_getViewModelStore.png)
+```java
+@NonNull
+@Override
+public ViewModelStore getViewModelStore() {
+    if (getApplication() == null) {
+        throw new IllegalStateException("Your activity is not yet attached to the "
+                + "Application instance. You can't request ViewModel before onCreate call.");
+        }
+    ensureViewModelStore();
+    return mViewModelStore;
+}
+
+@SuppressWarnings("WeakerAccess") /* synthetic access */
+void ensureViewModelStore() {
+    if (mViewModelStore == null) {
+        NonConfigurationInstances nc =
+                (NonConfigurationInstances) getLastNonConfigurationInstance();
+        if (nc != null) {
+            // Restore the ViewModelStore from NonConfigurationInstances
+            mViewModelStore = nc.viewModelStore;
+        }
+        if (mViewModelStore == null) {
+            mViewModelStore = new ViewModelStore();
+        }
+    }
+}
+```
 
 ComponentActivity에서의 getviewModelStroe()입니다.
 NonConfigurationInstances 는 구성변경 시에도 화면의 이전 상태를 유지하고 데이터를 보존하는 데 사용되는 클래스 입니다.
@@ -79,8 +116,39 @@ NonConfigurationInstances 는 구성변경 시에도 화면의 이전 상태를 
 
 다시 돌아와서, ViewModelProvider에서 get()을 호출하여 ViewModel을 생성하게 됩니다.
 
-![./blog_get1.png](./blog_get1.png)
-![./blog_get2.png](./blog_get2.png)
+```kotlin
+@MainThread
+public open operator fun <T : ViewModel> get(modelClass: Class<T>): T {
+    val canonicalName = modelClass.canonicalName
+        ?: throw IllegalArgumentException("Local and anonymous classes can not be ViewModels")
+    return get("$DEFAULT_KEY:$canonicalName", modelClass)
+}
+```
+```kotlin
+@Suppress("UNCHECKED_CAST")
+@MainThread
+public open operator fun <T : ViewModel> get(key: String, modelClass: Class<T>): T {
+    val viewModel = store[key]
+    if (modelClass.isInstance(viewModel)) {
+        (factory as? OnRequeryFactory)?.onRequery(viewModel)
+        return viewModel as T
+    } else {
+        @Suppress("ControlFlowWithEmptyBody")
+        if (viewModel != null) {
+            // TODO: log a warning.
+        }
+    }
+    val extras = MutableCreationExtras(defaultCreationExtras)
+    extras[VIEW_MODEL_KEY] = key
+    // AGP has some desugaring issues associated with compileOnly dependencies so we need to
+    // fall back to the other create method to keep from crashing.
+    return try {
+        factory.create(modelClass, extras)
+    } catch (e: AbstractMethodError) {
+        factory.create(modelClass)
+    }.also { store.put(key, it) }
+}
+```
 
 바로 이 함수입니다.
 
@@ -88,7 +156,38 @@ get으로 ViewModel을 요청했을 때 ViewModelStore에 있으면 꺼내오고
 
 그렇다면 ViewModelStore는 무엇일까요?
 
-![./blog_viewModelStore.png](./blog_viewModelStore.png)
+
+```java
+public class ViewModelStore {
+
+    private final HashMap<String, ViewModel> mMap = new HashMap<>();
+
+    final void put(String key, ViewModel viewModel) {
+        ViewModel oldViewModel = mMap.put(key, viewModel);
+        if (oldViewModel != null) {
+            oldViewModel.onCleared();
+        }
+    }
+
+    final ViewModel get(String key) {
+        return mMap.get(key);
+    }
+
+    Set<String> keys() {
+        return new HashSet<>(mMap.keySet());
+    }
+
+    /**
+     *  Clears internal storage and notifies ViewModels that they are no longer used.
+     */
+    public final void clear() {
+        for (ViewModel vm : mMap.values()) {
+            vm.clear();
+        }
+        mMap.clear();
+    }
+}
+```
 
 이름처럼 ViewModel들을 저장하는 클래스입니다. 
 
