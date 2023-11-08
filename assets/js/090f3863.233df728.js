@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[1417],{6160:e=>{e.exports=JSON.parse('{"label":"viewmodel","permalink":"/tags/viewmodel","allTagsPath":"/tags","count":2}')}}]);

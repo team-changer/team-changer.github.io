@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[8577],{358:e=>{e.exports=JSON.parse('{"permalink":"/tags/android","page":1,"postsPerPage":1,"totalPages":2,"totalCount":2,"nextPage":"/tags/android/page/2","blogDescription":"Blog","blogTitle":"Blog"}')}}]);
