@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[3571],{5384:e=>{e.exports=JSON.parse('{"label":"Spring cache","permalink":"/tags/spring-cache","allTagsPath":"/tags","count":1}')}}]);
