@@ -9,7 +9,7 @@
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko</language>
         <item>
-            <title><![CDATA[회원 삭제 N+1 문제 JPQL로 해결하기 (feat. 커버링 인덱스)]]></title>
+            <title><![CDATA[회원 삭제 N+1 문제 @Query로 해결하기 (feat. 커버링 인덱스)]]></title>
             <link>https://tripdraw.blog/JPA N + 1 Problem</link>
             <guid>https://tripdraw.blog/JPA N + 1 Problem</guid>
             <pubDate>Wed, 08 Nov 2023 00:00:00 GMT</pubDate>
