@@ -29,7 +29,7 @@ member_id 를 통해 회원 삭제 요청을 하면, Member, Trip, Post, Point�
 
 DB Schema를 그려보면 다음과 같습니다.
 
-![](https://velog.velcdn.com/images/153plane/post/87252cbe-8041-44e8-9e75-9724b8aaae49/image.png)
+<img src="https://velog.velcdn.com/images/153plane/post/ae45353d-1d58-455e-b943-18d04712f26d/image.png" width="80%"></img>
 
 Trip과 Point는 1:N 관계, Point와 Post는 1:1 관계입니다.
 
@@ -198,7 +198,7 @@ where post_id = ?
 
 ## 해결
 
-### 감상 삭제
+### Post 삭제
 
 ```java
 public interface PostRepository extends JpaRepository<Post, Long> {
@@ -224,9 +224,9 @@ Trip을 삭제하기 위해서는 Trip에 포함된 모든 Point를 우선 삭�
 
 Point 테이블이 trip_id를 외래키로 갖고 있기 때문입니다.
 
-![](https://velog.velcdn.com/images/153plane/post/87252cbe-8041-44e8-9e75-9724b8aaae49/image.png)
+<img src="https://velog.velcdn.com/images/153plane/post/ae45353d-1d58-455e-b943-18d04712f26d/image.png" width="80%"></img>
 
-외래키 제약조건을 만족하면서 삭제를 해야 합니다.
+외래키로 인한 데이터 무결성 제약 조건을 만족하면서 삭제를 해야 합니다.
 
 따라서 다음과 같은 과정을 밟습니다.
 
